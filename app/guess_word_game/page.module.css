@@ -1,0 +1,126 @@
+.flexBox {
+    display: flex;
+}
+.flexBoxCenter {
+    align-items: center;
+    justify-content: center;
+}
+.gameTitle {
+    color: white;
+}
+.gameTitleBox {
+    background-color: darkslategrey;
+    border-radius: 100px;
+    text-align: center;
+}
+.parentBox {
+    background-color: brown;
+    box-shadow: 0 0 2px 2px brown;
+    height: max-content;
+    border-radius: 100px;
+    flex-direction: column;
+    padding: 20px;
+    gap: 1rem;
+}
+.gameParentBox {
+    justify-content: space-evenly;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+.inputField {
+    width: 8%;
+    height: 100px;
+    font-size: 200%;
+    text-align: center;
+    border: none;
+    outline: none;
+    border-bottom: solid 5px darkslategrey;
+    color: darkslategrey;
+}
+.inputFieldsRow {
+    flex-direction: row;
+    gap: 1rem;
+    align-items: center;
+    justify-content: center;
+}
+.gameLeftBox {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+    justify-content: center;
+}
+.button {
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1.5rem;
+    width: 150px;
+    height: 50px;
+    border: none;
+    color: white;
+    font-weight: bolder;
+    transition: 0.5s box-shadow, background-color;
+}
+.button:hover {
+    background-color: darkslategrey;
+    box-shadow: 0 0 2px 2px darkslategrey;
+}
+.submitButton {
+    background-color: green;
+}
+.hintButton {
+    background-color: blue;
+}
+.buttonsBox {
+    flex-direction: row;
+    gap: 1rem;
+    justify-content: center;
+}
+.inputFieldDisabled {
+    background-color: gray;
+    pointer-events: none;
+}
+.inputFieldEnabled {
+    background-color: white;
+    pointer-events: all;
+}
+.tryNumberLabel {
+    color: white;
+}
+.subTitle {
+    color: white;
+}
+.ruleBox {
+    width: 50px;
+    height: 50px;
+}
+.gameRulesBox {
+    flex-direction: column;
+}
+.ruleParentBox {
+    flex-direction: row;
+    gap: 1rem;
+    align-items: center;
+}
+#wordBox {
+    font-size: 1.5rem;
+    font-weight: bolder;
+    color: white;
+}
+#gameBox {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+#submitButton {
+
+}
+#hintButton {
+
+}
+#numberOfHints {
+    
+}

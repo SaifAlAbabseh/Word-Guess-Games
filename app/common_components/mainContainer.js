@@ -1,8 +1,8 @@
-import '../common_css/common.css';
+import styles from '../common_css/common.module.css';
 
 function MainContainer({ children }) {
     return (
-        <main className="mainContainer">
+        <main className={styles.mainContainer} id={styles.mainContainer}>
             { children }
         </main>
     );

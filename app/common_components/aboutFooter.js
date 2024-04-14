@@ -1,9 +1,13 @@
-import '../common_css/common.css';
+import styles from '../common_css/common.module.css';
+import Link from 'next/link';
 
 function AboutFooter() {
     return (
-        <div className="footer">
+        <div className={styles.footer}>
             Developed By Saif AlAbabseh
+            <Link href="/about" className={styles.aboutLink}>
+                About Me
+            </Link>
         </div>
     );
 }

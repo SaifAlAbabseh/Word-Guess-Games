@@ -4,9 +4,9 @@ import Link from 'next/link';
 import Image from 'next/image';
 import hangmanIcon from '../public/hangmanGameIcon.svg';
 import guessWordGameIcon from '../public/guessWordGameIcon.svg';
-import AboutFooter from "./common_components/aboutFooter";
-import MainContainer from "./common_components/mainContainer";
-import MainPanel from "./common_components/mainPanel";
+import AboutFooter from './common_components/aboutFooter';
+import MainContainer from './common_components/mainContainer';
+import MainPanel from './common_components/mainPanel';
 
 function Home() {
 
@@ -19,7 +19,7 @@ function Home() {
             <br />
             Play HangMan Game
           </Link>
-          <Link href="" className={styles.gameLink} id={styles.guessWordGameLink}>
+          <Link href="/guess_word_game" className={styles.gameLink} id={styles.guessWordGameLink}>
             <Image src={guessWordGameIcon} alt={'word guess game icon'} className={styles.svgIcon} priority />
             <br />
             Play Guess Word Game

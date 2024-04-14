@@ -1,8 +1,8 @@
-import '../common_css/common.css';
+import styles from '../common_css/common.module.css';
 
 function MainPanel({ children }) {
     return (
-        <div className="mainPanel">
+        <div className={styles.mainPanel}>
             { children }
         </div>
     );

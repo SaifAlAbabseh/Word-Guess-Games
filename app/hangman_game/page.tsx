@@ -1,12 +1,13 @@
-"use client"
+'use client'
 
 import '../common_css/common.css';
-import './page.css';
-import InitGame from "../games_logic/hangmanGameLogic";
-import AboutFooter from "../common_components/aboutFooter";
-import MainContainer from "../common_components/mainContainer";
-import MainPanel from "../common_components/mainPanel";
+import styles from './page.module.css';
+import InitGame from '../games_logic/hangmanGameLogic';
+import AboutFooter from '../common_components/aboutFooter';
+import MainContainer from '../common_components/mainContainer';
+import MainPanel from '../common_components/mainPanel';
 import { useEffect } from 'react';
+import TopBar from '../common_components/topBar';
 
 function HangManGame() {
 
@@ -15,29 +16,24 @@ function HangManGame() {
             InitGame();
         }, []);
 
-
     return (
         <MainContainer>
             <MainPanel>
-                <div id="game-upper-box-container" className="flex-box-center">
-                    <div className="flex-box-center column-box">
-                        <div className="restart-button-box">
-                            <button className="button">Restart</button>
-                        </div>
-                        <div id="hanged-man-box">
-                            <div id="hanged-man-base"></div>
-                            <div id="hanged-man-invalid-1" className="hidden-part"></div>
-                            <div id="hanged-man-invalid-2" className="hidden-part"></div>
-                            <div id="hanged-man-invalid-3" className="hidden-part"></div>
-                            <div id="hanged-man-invalid-4" className="hidden-part"></div>
-                            <div id="hanged-man-invalid-5" className="hidden-part"></div>
-                            <div id="hanged-man-invalid-6" className="hidden-part"></div>
-                            <div id="hanged-man-invalid-7" className="hidden-part"></div>
-                        </div>
+                <TopBar />
+                <div id={styles.gameUpperBoxContainer} className={styles.flexBoxCenter}>
+                    <div id={styles.hangedManBox}>
+                        <div id={styles.hangedManBase}></div>
+                        <div id={styles.hangedManInvalid_1} className={styles.hiddenPart}></div>
+                        <div id={styles.hangedManInvalid_2} className={styles.hiddenPart}></div>
+                        <div id={styles.hangedManInvalid_3} className={styles.hiddenPart}></div>
+                        <div id={styles.hangedManInvalid_4} className={styles.hiddenPart}></div>
+                        <div id={styles.hangedManInvalid_5} className={styles.hiddenPart}></div>
+                        <div id={styles.hangedManInvalid_6} className={styles.hiddenPart}></div>
+                        <div id={styles.hangedManInvalid_7} className={styles.hiddenPart}></div>
                     </div>
-                    <div id="letters-box" className="flex-box-center"></div>
+                    <div id={styles.lettersBox} className={styles.flexBoxCenter}></div>
                 </div>
-                <div id="game-lower-box-container" className="flex-box-center"></div>
+                <div id={styles.gameLowerBoxContainer} className={styles.flexBoxCenter}></div>
             </MainPanel>
             <AboutFooter />
         </MainContainer>
