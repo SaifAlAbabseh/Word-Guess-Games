@@ -4,7 +4,7 @@ import Link from 'next/link';
 function AboutFooter() {
     return (
         <div className={styles.footer}>
-            Developed By Saif AlAbabseh
+            <p>Developed By Saif AlAbabseh</p>
             <Link href="/about" className={styles.aboutLink}>
                 About Me
             </Link>
