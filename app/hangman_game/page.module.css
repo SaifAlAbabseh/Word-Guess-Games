@@ -11,10 +11,10 @@
 
 .inputField {
     background-color: white;
-    color: lightgreen;
+    color: black;
     border: none;
-    border-bottom: solid 5px lightgreen;
-    font-size: 1.5rem;
+    border: solid 5px lightgreen;
+    font-size: 2rem;
     width: 8%;
     height: 50px;
     font-weight: bolder;
@@ -40,17 +40,24 @@
     width: 400px;
     gap: 1rem;
 }
-.letterButton {
+.letterButton, .letterButtonDisabled {
     font-weight: bolder;
-    background-color: lightgreen;
-    color: white;
-    cursor: pointer;
     font-size: 120%;
     width: 17%;
     height: 50px;
     border: none;
     text-align: center;
     transition: 0.5s background-color, color;
+}
+.letterButton {
+    background-color: lightgreen;
+    color: white;
+    cursor: pointer;
+}
+.letterButtonDisabled {
+    background-color: gray;
+    color: black;
+    cursor: default;
 }
 .letterButton:hover {
     background-color: white;

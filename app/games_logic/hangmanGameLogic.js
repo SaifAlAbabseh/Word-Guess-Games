@@ -24,6 +24,13 @@ function InitGame() {
     word = "";
     // Initialize a word
     initWord();
+    if(word === "") {
+        setTimeout(function() {
+            if(word === "") {
+                endGame("Server Error, reload the page please..");
+            }
+        }, 2000);
+    }
     // Initialize the input fields
     initInputFields();
     // Initialize the letters buttons
@@ -71,9 +78,9 @@ function letterClicked() {
             }
             if (correctEnteredLetters.join("") === word) endGame("You Won :) The Word Is: \"" + word + "\"", "green");
         }
-        else invalid();
+        else invalid(this);
     }
-    else invalid();
+    else invalid(this);
 }
 
 function getPossiblePlaces(occurrencesInWordArray, occurrencesInArrayArray) {
@@ -112,7 +119,10 @@ function countLetterOccurrencesInArray(letter) {
     return count;
 }
 
-function invalid() {
+function invalid(clickedLetterButton) {
+    clickedLetterButton.disabled = true;
+    clickedLetterButton.classList.remove(`${styles.letterButton}`);
+    clickedLetterButton.classList.add(`${styles.letterButtonDisabled}`);
     currentInvalidNumber++;
     let hangedManPartReveal = document.querySelector(`[id*="hangedManInvalid_${currentInvalidNumber}"]`);
     hangedManPartReveal.classList.remove(`${styles.hiddenPart}`);

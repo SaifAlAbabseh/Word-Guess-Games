@@ -24,15 +24,15 @@
 }
 .gameParentBox {
     justify-content: space-evenly;
-    flex-direction: column;
+    flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
 }
 .inputField {
-    width: 8%;
-    height: 100px;
-    font-size: 200%;
+    width: 60px;
+    height: 80px;
+    font-size: 3rem;
     text-align: center;
     border: none;
     outline: none;
@@ -46,6 +46,7 @@
     justify-content: center;
 }
 .gameLeftBox {
+    width: 50%;
     flex-direction: column;
     gap: 1rem;
     align-items: center;
@@ -87,6 +88,7 @@
 }
 .tryNumberLabel {
     color: white;
+    width: 50px;
 }
 .subTitle {
     color: white;
@@ -96,6 +98,7 @@
     height: 50px;
 }
 .gameRulesBox {
+    height: 100%;
     flex-direction: column;
 }
 .ruleParentBox {
@@ -110,17 +113,10 @@
 }
 #gameBox {
     flex-direction: column;
-    gap: 1rem;
     align-items: center;
     justify-content: center;
     width: 100%;
 }
-#submitButton {
-
-}
-#hintButton {
-
-}
-#numberOfHints {
-    
-}
+#submitButton {}
+#hintButton {}
+#numberOfHints {}
