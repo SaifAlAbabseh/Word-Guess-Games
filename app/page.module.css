@@ -36,3 +36,9 @@
   width: 150px;
   height: 150px;
 }
+#memoryGameLink {
+  background-color: purple;
+}
+#memoryGameLink:hover {
+  box-shadow: 0 0 5px 5px purple;
+}
