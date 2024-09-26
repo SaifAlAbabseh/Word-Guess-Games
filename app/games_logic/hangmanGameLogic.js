@@ -24,9 +24,9 @@ function InitGame() {
     word = "";
     // Initialize a word
     initWord();
-    if(word === "") {
-        setTimeout(function() {
-            if(word === "") {
+    if (word === "") {
+        setTimeout(function () {
+            if (word === "") {
                 endGame("Server Error, reload the page please..");
             }
         }, 2000);
@@ -63,19 +63,15 @@ function letterClicked() {
         let countLetterInWord = countLetterOccurrencesInWord(clickedLetter);
         let countLetterInArray = countLetterOccurrencesInArray(clickedLetter);
         if (countLetterInWord.length > countLetterInArray.length) {
-            if (countLetterInArray.length == 0) {
-                let randomPlace = countLetterInWord[Math.floor(Math.random() * countLetterInWord.length)];
-                let field = document.getElementById("field_" + (randomPlace + 1));
+            let possiblePlaces = getPossiblePlaces(countLetterInWord, countLetterInArray);
+            for (let i = 0; i < possiblePlaces.length; i++) {
+                let field = document.getElementById("field_" + (possiblePlaces[i] + 1));
                 field.innerHTML = clickedLetter;
-                correctEnteredLetters[randomPlace] = clickedLetter;
+                correctEnteredLetters[possiblePlaces[i]] = clickedLetter;
             }
-            else {
-                let possiblePlaces = getPossiblePlaces(countLetterInWord, countLetterInArray);
-                let randomPlace = possiblePlaces[Math.floor(Math.random() * possiblePlaces.length)];
-                let field = document.getElementById("field_" + (randomPlace + 1));
-                field.innerHTML = clickedLetter;
-                correctEnteredLetters[randomPlace] = clickedLetter;
-            }
+            this.disabled = true;
+            this.classList.remove(`${styles.letterButton}`);
+            this.classList.add(`${styles.letterButtonDisabled}`);
             if (correctEnteredLetters.join("") === word) endGame("You Won :) The Word Is: \"" + word + "\"", "green");
         }
         else invalid(this);
