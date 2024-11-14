@@ -2,15 +2,15 @@ import styles from '../hangman_game/page.module.css';
 import styles2 from '../common_css/common.module.css';
 
 // Global Variables
-let lowerBox;
-let lettersBox;
+let lowerBox: HTMLElement | null;
+let lettersBox: HTMLElement | null;
 
-let wordLength;
-let correctEnteredLetters;
-let currentInvalidNumber;
-let numberOfTries;
-let language;
-let word;
+let wordLength: number;
+let correctEnteredLetters: Array<string>;
+let currentInvalidNumber: number;
+let numberOfTries: number;
+let language: string;
+let word: string;
 
 // Functions
 function InitGame() {
@@ -27,7 +27,7 @@ function InitGame() {
     if (word === "") {
         setTimeout(function () {
             if (word === "") {
-                endGame("Server Error, reload the page please..");
+                endGame("Server Error, reload the page please..", "red");
             }
         }, 2000);
     }
@@ -42,7 +42,7 @@ function initInputFields() {
         let inputField = document.createElement("div");
         inputField.classList.add(`${styles.inputField}`);
         inputField.id = "field_" + i;
-        lowerBox.appendChild(inputField);
+        lowerBox?.appendChild(inputField);
     }
 }
 
@@ -53,21 +53,21 @@ function initLettersButtons() {
         letterButton.classList.add(`${styles.letterButton}`);
         letterButton.innerHTML = letters.charAt(i);
         letterButton.addEventListener("click", letterClicked);
-        lettersBox.appendChild(letterButton);
+        lettersBox?.appendChild(letterButton);
     }
 }
 
-function letterClicked() {
+function letterClicked(this: HTMLButtonElement) {
     let clickedLetter = this.innerHTML;
     if (word.includes(clickedLetter)) {
         let countLetterInWord = countLetterOccurrencesInWord(clickedLetter);
         let countLetterInArray = countLetterOccurrencesInArray(clickedLetter);
         if (countLetterInWord.length > countLetterInArray.length) {
             let possiblePlaces = getPossiblePlaces(countLetterInWord, countLetterInArray);
-            for (let i = 0; i < possiblePlaces.length; i++) {
-                let field = document.getElementById("field_" + (possiblePlaces[i] + 1));
-                field.innerHTML = clickedLetter;
-                correctEnteredLetters[possiblePlaces[i]] = clickedLetter;
+            for (const element of possiblePlaces) {
+                let field = document.getElementById("field_" + (element + 1));
+                if(field) field.innerHTML = clickedLetter;
+                correctEnteredLetters[element] = clickedLetter;
             }
             this.disabled = true;
             this.classList.remove(`${styles.letterButton}`);
@@ -79,19 +79,19 @@ function letterClicked() {
     else invalid(this);
 }
 
-function getPossiblePlaces(occurrencesInWordArray, occurrencesInArrayArray) {
+function getPossiblePlaces(occurrencesInWordArray: Array<number>, occurrencesInArrayArray: Array<number>) {
     let possiblePlaces = [];
     let index = 0;
-    for (let i = 0; i < occurrencesInWordArray.length; i++) {
-        if (!occurrencesInArrayArray.includes(occurrencesInWordArray[i])) {
-            possiblePlaces[index] = occurrencesInWordArray[i];
+    for (const element of occurrencesInWordArray) {
+        if (!occurrencesInArrayArray.includes(element)) {
+            possiblePlaces[index] = element;
             index++;
         }
     }
     return possiblePlaces;
 }
 
-function countLetterOccurrencesInWord(letter) {
+function countLetterOccurrencesInWord(letter: string) {
     let count = [];
     let index = 0;
     for (let i = 0; i < wordLength; i++) {
@@ -103,7 +103,7 @@ function countLetterOccurrencesInWord(letter) {
     return count;
 }
 
-function countLetterOccurrencesInArray(letter) {
+function countLetterOccurrencesInArray(letter: string) {
     let count = [];
     let index = 0;
     for (let i = 0; i < correctEnteredLetters.length; i++) {
@@ -115,26 +115,26 @@ function countLetterOccurrencesInArray(letter) {
     return count;
 }
 
-function invalid(clickedLetterButton) {
+function invalid(clickedLetterButton: HTMLButtonElement) {
     clickedLetterButton.disabled = true;
     clickedLetterButton.classList.remove(`${styles.letterButton}`);
     clickedLetterButton.classList.add(`${styles.letterButtonDisabled}`);
     currentInvalidNumber++;
     let hangedManPartReveal = document.querySelector(`[id*="hangedManInvalid_${currentInvalidNumber}"]`);
-    hangedManPartReveal.classList.remove(`${styles.hiddenPart}`);
+    hangedManPartReveal?.classList.remove(`${styles.hiddenPart}`);
     if (currentInvalidNumber == numberOfTries) endGame("You've Lost :( The Word Was: \"" + word + "\"", "red");
 }
 
-function endGame(message, textColor) {
+function endGame(message: string, textColor: string) {
     let endGameBox = document.createElement("div");
     endGameBox.innerHTML = message;
     endGameBox.style.color = textColor;
     endGameBox.classList.add(`${styles.afterGameBox}`);
     endGameBox.classList.add(`${styles.flexBoxCenter}`);
-    document.getElementById(`${styles2.mainContainer}`).appendChild(endGameBox);
+    document.getElementById(`${styles2.mainContainer}`)?.appendChild(endGameBox);
     let letterButtons = document.querySelectorAll(`[class*="letterButton"]`);
     letterButtons.forEach(element => {
-        element.style.pointerEvents = "none";
+        (element as HTMLButtonElement).style.pointerEvents = "none";
     });
 }
 

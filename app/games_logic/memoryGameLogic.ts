@@ -1,4 +1,3 @@
-import { Truculenta } from 'next/font/google';
 import styles from '../memory_game/page.module.css';
 import styles2 from '../common_css/common.module.css';
 
@@ -6,13 +5,13 @@ const numberOfRows = 3;
 const numberOfColumns = 5;
 const numberOfCardDuplication = 3;
 const cardPath = "../../cards/";
-let wrongTriesCounter;
-let cardNames;
-let cards;
-let cardCount;
-let cardsCorrect;
-let prevCard;
-let wrongTriesCount;
+let wrongTriesCounter: HTMLElement | null;
+let cardNames: Array<string>;
+let cards: Array<string>;
+let cardCount: Array<number>;
+let cardsCorrect: Array<number>;
+let prevCard: string | null;
+let wrongTriesCount: number;
 
 function InitGame() {
     wrongTriesCounter = document.getElementById(`${styles.wrongTriesCounter}`);
@@ -54,23 +53,23 @@ function initBoxes() {
                 randomPos = Math.floor(Math.random() * cardNames.length);
             }
         }
-        gameBox.appendChild(boxesRow);
+        gameBox?.appendChild(boxesRow);
     }
 }
 
-function boxClicked(box, clickedCard, card) {
+function boxClicked(box: HTMLElement, clickedCard: HTMLElement, card: string) {
     clickedCard.classList.add(`${styles.clickedCard}`);
     box.style.pointerEvents = "none";
     if (prevCard !== null && card !== prevCard) {
         wrongTriesCount++;
-        wrongTriesCounter.innerHTML = "" + wrongTriesCount;
+        if(wrongTriesCounter) wrongTriesCounter.innerHTML = "" + wrongTriesCount;
         for (let i = 1; i <= numberOfRows; i++) {
             for (let j = 1; j <= numberOfColumns; j++) {
                 let card = document.getElementById("card_" + i + "_" + j);
                 let boxElement = document.getElementById("box_" + i + "_" + j);
                 setTimeout(function () {
-                    card.classList.remove(`${styles.clickedCard}`);
-                    boxElement.style.pointerEvents = "all";
+                    card?.classList.remove(`${styles.clickedCard}`);
+                    if(boxElement) boxElement.style.pointerEvents = "all";
                 }, 300);
                 cardsCorrect = [0, 0, 0, 0, 0];
                 prevCard = null;
@@ -87,23 +86,23 @@ function boxClicked(box, clickedCard, card) {
     }
 
     let isWin = true;
-    for (let i = 0; i < cardsCorrect.length; i++) {
-        if (cardsCorrect[i] !== 3) isWin = false;
+    for (const element of cardsCorrect) {
+        if (element !== 3) isWin = false;
     }
     if (isWin) {
         endGame("You've won :)", "green");
     }
 }
 
-function endGame(message, textColor) {
+function endGame(message: string, textColor: string) {
     let endGameBox = document.createElement("div");
     endGameBox.innerHTML = message;
     endGameBox.style.color = textColor;
     endGameBox.classList.add(`${styles.afterGameBox}`);
     endGameBox.classList.add(`${styles.flexBoxCenter}`);
-    document.getElementById(`${styles2.mainContainer}`).appendChild(endGameBox);
+    document.getElementById(`${styles2.mainContainer}`)?.appendChild(endGameBox);
     let mainGameBoxParent = document.getElementById(`${styles.mainGameBoxParent}`);
-    mainGameBoxParent.style.pointerEvents = "none";
+    if(mainGameBoxParent) mainGameBoxParent.style.pointerEvents = "none";
 }
 
 export default InitGame;

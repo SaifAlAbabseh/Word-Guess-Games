@@ -2,18 +2,18 @@ import styles from '../guess_word_game/page.module.css';
 
 // Global Variables
 
-let language;
-let word;
-let wordLength;
-let numberOfTries;
-let numberOfHints;
-let currentTryNumber;
-let isWin;
+let language: string;
+let word: string;
+let wordLength: number;
+let numberOfTries: number;
+let numberOfHints: number;
+let currentTryNumber: number;
+let isWin: boolean;
 
-let submitButton;
-let hintButton;
-let hintLabel;
-let wordBox;
+let submitButton: HTMLElement | null;
+let hintButton: HTMLElement | null;;
+let hintLabel: HTMLElement | null;;
+let wordBox: HTMLElement | null;;
 
 // Functions
 
@@ -48,48 +48,50 @@ function getWord() {
         })
 }
 
-function moveLeft(colNum, rowNum) {
+function moveLeft(colNum: number, rowNum: number) {
     if (colNum > 1) {
         for (let index = colNum - 1; index >= 1; index--) {
-            if (!document.getElementById(rowNum + "_" + index).classList.contains(`${styles.inputFieldDisabled}`)) {
+            if (!document.getElementById(rowNum + "_" + index)?.classList.contains(`${styles.inputFieldDisabled}`)) {
                 let newId = rowNum + "_" + index;
-                document.getElementById(newId).focus();
+                document.getElementById(newId)?.focus();
                 break;
             }
         }
     }
 }
 
-function moveRight(colNum, rowNum) {
+function moveRight(colNum: number, rowNum: number) {
     if (colNum < wordLength) {
         for (let index = colNum + 1; index <= wordLength; index++) {
-            if (!document.getElementById(rowNum + "_" + index).classList.contains(`${styles.inputFieldDisabled}`)) {
+            if (!document.getElementById(rowNum + "_" + index)?.classList.contains(`${styles.inputFieldDisabled}`)) {
                 let newId = rowNum + "_" + index;
-                document.getElementById(newId).focus();
+                document.getElementById(newId)?.focus();
                 break;
             }
         }
     }
 }
 
-function endGame(endMessage) {
-    submitButton.style.pointerEvents = "none";
-    submitButton.style.backgroundColor = "gray";
-    hintButton.style.pointerEvents = "none";
-    hintButton.style.backgroundColor = "gray";
-    wordBox.innerHTML = endMessage + word;
+function endGame(endMessage: string) {
+    if (submitButton) {
+        submitButton.style.pointerEvents = "none";
+        submitButton.style.backgroundColor = "gray";
+    }
+    if (hintButton) {
+        hintButton.style.pointerEvents = "none";
+        hintButton.style.backgroundColor = "gray";
+    }
+    if (wordBox) wordBox.innerHTML = endMessage + word;
 }
 
-function checkLetter(isEnd, index) {
+function checkLetter(isEnd: number, index: number) {
     let inputField = document.getElementById((currentTryNumber - isEnd) + "_" + index);
-    inputField.classList.remove(`${styles.inputFieldEnabled}`);
-    inputField.classList.add(`${styles.inputFieldDisabled}`);
-    if (inputField.value === "") inputField.style.backgroundColor = "black"
-    else {
-        if (word.includes(inputField.value) && ("" + word.charAt(index - 1)) === inputField.value) inputField.style.backgroundColor = "green";
-        else if (word.includes(inputField.value) && ("" + word.charAt(index - 1)) !== inputField.value) inputField.style.backgroundColor = "orange";
-        else inputField.style.backgroundColor = "black";
-    }
+    inputField?.classList.remove(`${styles.inputFieldEnabled}`);
+    inputField?.classList.add(`${styles.inputFieldDisabled}`);
+    if (inputField && (inputField as HTMLInputElement).value === "") inputField.style.backgroundColor = "black"
+    else if (word.includes((inputField as HTMLInputElement).value) && ("" + word.charAt(index - 1)) === (inputField as HTMLInputElement).value) (inputField as HTMLInputElement).style.backgroundColor = "green";
+    else if (word.includes((inputField as HTMLInputElement).value) && ("" + word.charAt(index - 1)) !== (inputField as HTMLInputElement).value) (inputField as HTMLInputElement).style.backgroundColor = "orange";
+    else (inputField as HTMLInputElement).style.backgroundColor = "black";
 }
 
 function initGameBox() {
@@ -138,12 +140,12 @@ function initGameBox() {
             }
             inputFieldsRow.appendChild(inputField);
         }
-        gameBox.appendChild(inputFieldsRow);
+        gameBox?.appendChild(inputFieldsRow);
     }
 }
 
 function loadHints() {
-    hintLabel.innerHTML = numberOfHints;
+    if (hintLabel) hintLabel.innerHTML = "" + numberOfHints;
 }
 
 function SubmitGuess() {
@@ -151,31 +153,29 @@ function SubmitGuess() {
         let userInput = "";
         for (let index = 1; index <= wordLength; index++) {
             let inputField = document.getElementById(currentTryNumber + "_" + index);
-            userInput += inputField.value;
+            userInput += (inputField as HTMLInputElement).value;
             checkLetter(0, index);
         }
         let tryNumberLabel = document.getElementById("try_" + currentTryNumber);
-        tryNumberLabel.style.color = "gray";
+        if (tryNumberLabel) tryNumberLabel.style.color = "gray";
         currentTryNumber++;
         if (word === userInput) {
             isWin = true;
             endGame("You Won :) the word is: ");
         }
-        else {
-            if (currentTryNumber != numberOfTries + 1) {
-                let tryNumberLabel = document.getElementById("try_" + currentTryNumber);
-                tryNumberLabel.style.color = "white";
-                for (let index = 1; index <= wordLength; index++) {
-                    let prevInputField = document.getElementById((currentTryNumber - 1) + "_" + index);
-                    let inputField = document.getElementById(currentTryNumber + "_" + index);
-                    inputField.classList.remove(`${styles.inputFieldDisabled}`);
-                    inputField.classList.add(`${styles.inputFieldEnabled}`);
-                    if (prevInputField.style.backgroundColor === "green") {
-                        inputField.classList.remove(`${styles.inputFieldEnabled}`);
-                        inputField.classList.add(`${styles.inputFieldDisabled}`);
-                        inputField.style.backgroundColor = "green";
-                        inputField.value = prevInputField.value;
-                    }
+        else if (currentTryNumber != numberOfTries + 1) {
+            let tryNumberLabel = document.getElementById("try_" + currentTryNumber);
+            if (tryNumberLabel) tryNumberLabel.style.color = "white";
+            for (let index = 1; index <= wordLength; index++) {
+                let prevInputField = document.getElementById((currentTryNumber - 1) + "_" + index);
+                let inputField = document.getElementById(currentTryNumber + "_" + index);
+                inputField?.classList.remove(`${styles.inputFieldDisabled}`);
+                inputField?.classList.add(`${styles.inputFieldEnabled}`);
+                if (prevInputField?.style.backgroundColor === "green") {
+                    inputField?.classList.remove(`${styles.inputFieldEnabled}`);
+                    inputField?.classList.add(`${styles.inputFieldDisabled}`);
+                    if (inputField) inputField.style.backgroundColor = "green";
+                    (inputField as HTMLInputElement).value = (prevInputField as HTMLInputElement).value;
                 }
             }
         }
@@ -188,27 +188,29 @@ function SubmitGuess() {
 
 function PutHint() {
     numberOfHints--;
-    hintLabel.innerHTML = numberOfHints;
+    if (hintLabel) hintLabel.innerHTML = "" + numberOfHints;
     if (numberOfHints == 0) {
-        hintButton.style.pointerEvents = "none";
-        hintButton.style.backgroundColor = "gray";
+        if (hintButton) {
+            hintButton.style.pointerEvents = "none";
+            hintButton.style.backgroundColor = "gray";
+        }
     }
 
     let possiblePlaces = "";
     for (let index = 1; index <= wordLength; index++) {
         let inputField = document.getElementById(currentTryNumber + "_" + index);
-        if (inputField.style.backgroundColor !== "green") possiblePlaces += index;
+        if (inputField?.style.backgroundColor !== "green") possiblePlaces += index;
     }
-    let randomPlace = parseInt(Math.random() * possiblePlaces.length);
+    let randomPlace = parseInt("" + Math.random() * possiblePlaces.length);
     let hintPlace = parseInt(possiblePlaces.charAt(randomPlace));
     let inputField = document.getElementById(currentTryNumber + "_" + hintPlace);
-    inputField.classList.remove(`${styles.inputFieldEnabled}`);
-    inputField.classList.add(`${styles.inputFieldDisabled}`);
-    inputField.style.backgroundColor = "green";
-    inputField.value = word.charAt(hintPlace - 1);
+    inputField?.classList.remove(`${styles.inputFieldEnabled}`);
+    inputField?.classList.add(`${styles.inputFieldDisabled}`);
+    if (inputField) inputField.style.backgroundColor = "green";
+    (inputField as HTMLInputElement).value = word.charAt(hintPlace - 1);
     let isAll = true;
     for (let i = 1; i <= wordLength; i++) {
-        if (!document.getElementById(currentTryNumber + "_" + i).classList.contains(`${styles.inputFieldDisabled}`)) isAll = false;
+        if (!document.getElementById(currentTryNumber + "_" + i)?.classList.contains(`${styles.inputFieldDisabled}`)) isAll = false;
     }
     if (isAll) {
         isWin = true;

@@ -23,7 +23,6 @@
     gap: 1rem;
 }
 .gameParentBox {
-    justify-content: space-evenly;
     flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
