@@ -29,6 +29,7 @@
 
 .mainGameBox {
     flex-direction: column;
+    padding: 10px;
     gap: 1rem;
     width: 60%;
     height: 100%;

@@ -8,6 +8,8 @@ import MainPanel from '../common_components/mainPanel';
 import TopBar from '../common_components/topBar';
 import InitGame from '../games_logic/memoryGameLogic';
 import { useEffect } from 'react';
+import MessageBox from '../common_components/messageBox';
+import MainGamePanel from '../common_components/mainGamePanel';
 
 
 function memoryGame() {
@@ -21,7 +23,8 @@ function memoryGame() {
         <MainContainer>
             <MainPanel>
                 <TopBar />
-                <div className={`${styles.mainGameBoxParent} ${styles.flexBoxCentered}`} id={styles.mainGameBoxParent}>
+                <MessageBox />
+                <MainGamePanel>
                     <div className={`${styles.mainGameBox} ${styles.flexBoxCentered}`}>
                         <h1 className={styles.wrongTriesCounterBox}>
                             There're 3 of each card
@@ -32,7 +35,7 @@ function memoryGame() {
                         <div className={`${styles.mainGameBox} ${styles.flexBoxCentered}`} id={styles.gameBox}>
                         </div>
                     </div>
-                </div>
+                </MainGamePanel>
             </MainPanel>
             <AboutFooter />
         </MainContainer>

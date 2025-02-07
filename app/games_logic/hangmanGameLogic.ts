@@ -1,5 +1,5 @@
 import styles from '../hangman_game/page.module.css';
-import styles2 from '../common_css/common.module.css';
+import endGame from '../games_logic/endGame';
 
 // Global Variables
 let lowerBox: HTMLElement | null;
@@ -123,19 +123,6 @@ function invalid(clickedLetterButton: HTMLButtonElement) {
     let hangedManPartReveal = document.querySelector(`[id*="hangedManInvalid_${currentInvalidNumber}"]`);
     hangedManPartReveal?.classList.remove(`${styles.hiddenPart}`);
     if (currentInvalidNumber == numberOfTries) endGame("You've Lost :( The Word Was: \"" + word + "\"", "red");
-}
-
-function endGame(message: string, textColor: string) {
-    let endGameBox = document.createElement("div");
-    endGameBox.innerHTML = message;
-    endGameBox.style.color = textColor;
-    endGameBox.classList.add(`${styles.afterGameBox}`);
-    endGameBox.classList.add(`${styles.flexBoxCenter}`);
-    document.getElementById(`${styles2.mainContainer}`)?.appendChild(endGameBox);
-    let letterButtons = document.querySelectorAll(`[class*="letterButton"]`);
-    letterButtons.forEach(element => {
-        (element as HTMLButtonElement).style.pointerEvents = "none";
-    });
 }
 
 function initWord() {

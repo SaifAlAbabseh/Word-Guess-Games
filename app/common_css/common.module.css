@@ -20,14 +20,11 @@
     background-color: black;
 }
 .mainPanel {
-    margin-top: 15px;
-    margin-bottom: 15px;
-    height: 92%;
+    height: 100%;
     width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    gap: 2rem;
     overflow: auto;
 }
 .button {
@@ -62,3 +59,23 @@
 .aboutLink:hover {
     color: white;
 }
+.messageBox {
+    display: none;
+}
+.messageBoxDisplay {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 0%;
+}
+.messageText {
+    font-weight: bolder;
+}
+.gameMainPanel {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+#gameMainPanel {}

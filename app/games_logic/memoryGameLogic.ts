@@ -1,5 +1,5 @@
 import styles from '../memory_game/page.module.css';
-import styles2 from '../common_css/common.module.css';
+import endGame from '../games_logic/endGame';
 
 const numberOfRows = 3;
 const numberOfColumns = 5;
@@ -92,17 +92,6 @@ function boxClicked(box: HTMLElement, clickedCard: HTMLElement, card: string) {
     if (isWin) {
         endGame("You've won :)", "green");
     }
-}
-
-function endGame(message: string, textColor: string) {
-    let endGameBox = document.createElement("div");
-    endGameBox.innerHTML = message;
-    endGameBox.style.color = textColor;
-    endGameBox.classList.add(`${styles.afterGameBox}`);
-    endGameBox.classList.add(`${styles.flexBoxCenter}`);
-    document.getElementById(`${styles2.mainContainer}`)?.appendChild(endGameBox);
-    let mainGameBoxParent = document.getElementById(`${styles.mainGameBoxParent}`);
-    if(mainGameBoxParent) mainGameBoxParent.style.pointerEvents = "none";
 }
 
 export default InitGame;

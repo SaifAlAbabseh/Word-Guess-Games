@@ -1,4 +1,5 @@
 import styles from '../guess_word_game/page.module.css';
+import endGame2 from '../games_logic/endGame';
 
 // Global Variables
 
@@ -72,7 +73,7 @@ function moveRight(colNum: number, rowNum: number) {
     }
 }
 
-function endGame(endMessage: string) {
+function endGame(endMessage: string, color: string) {
     if (submitButton) {
         submitButton.style.pointerEvents = "none";
         submitButton.style.backgroundColor = "gray";
@@ -81,7 +82,7 @@ function endGame(endMessage: string) {
         hintButton.style.pointerEvents = "none";
         hintButton.style.backgroundColor = "gray";
     }
-    if (wordBox) wordBox.innerHTML = endMessage + word;
+    endGame2(endMessage + word, color);
 }
 
 function checkLetter(isEnd: number, index: number) {
@@ -161,7 +162,7 @@ function SubmitGuess() {
         currentTryNumber++;
         if (word === userInput) {
             isWin = true;
-            endGame("You Won :) the word is: ");
+            endGame("You Won :) the word is: ", "green");
         }
         else if (currentTryNumber != numberOfTries + 1) {
             let tryNumberLabel = document.getElementById("try_" + currentTryNumber);
@@ -182,7 +183,7 @@ function SubmitGuess() {
     }
     if (currentTryNumber == 6 && !isWin) {
         for (let index = 1; index <= wordLength; index++) checkLetter(1, index);
-        endGame("You Lost :( the correct word was: ");
+        endGame("You Lost :( the correct word was: ", "red");
     }
 }
 
@@ -214,7 +215,7 @@ function PutHint() {
     }
     if (isAll) {
         isWin = true;
-        endGame("You Won :) the word is: ");
+        endGame("You Won :) the word is: ", "green");
     }
 }
 
