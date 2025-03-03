@@ -59,17 +59,10 @@
 .aboutLink:hover {
     color: white;
 }
-.messageBox {
-    display: none;
-}
-.messageBoxDisplay {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 0%;
-}
 .messageText {
     font-weight: bolder;
+    height: max-content;
+    text-align: center;
 }
 .gameMainPanel {
     width: 100%;
